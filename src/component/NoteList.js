@@ -26,17 +26,15 @@ const NoteForm = ({onAdd}) => {
   const [content, setContent] = useState("");
   const onSubmit = e => {
     e.preventDefault();
-    const note = {
-      title,
-      content,
-    };
-    onAdd(note);
+    onAdd(title, content);
+    setTitle("");
+    setContent("");
   };
   return (
     <ItemContainer>
       <div className="card">
         <div className="card-content">
-          <form onSubmit={onsubmit}>
+          <form onSubmit={onSubmit}>
             <input className="input" type="text" placeholder="Title..." value={title} required
                    onChange={e => setTitle(e.target.value)}/>
             <Whitespace/>
@@ -63,10 +61,19 @@ const NoteItem = ({note}) => (
 );
 
 const NoteList = () => {
-  const [notes, setNotes] = useState(generateDummyNotes(10));
+  const [notes, setNotes] = useState([]);
+  const addNote = (title, content) => {
+    const lastNote = notes[notes.length - 1];
+    const note = {
+      id: lastNote ? lastNote.id + 1 : 1,
+      title,
+      content,
+    };
+    setNotes([...notes, note]);
+  };
   return (
     <div>
-      <NoteForm/>
+      <NoteForm onAdd={addNote}/>
       {notes.map(note => <NoteItem key={note.id} note={note}/>)}
     </div>
   );
