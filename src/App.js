@@ -1,11 +1,20 @@
-import React from 'react';
+import React from "react";
 import "bulma";
+import styled from "styled-components";
+import NoteList from "./component/NoteList";
+
+const Container = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 0;
+`;
 
 const App = () => {
   return (
-    <div className="container">
-      <h1 className="title">Hello, World!</h1>
-    </div>
+    <Container>
+      <h1 className="title">NoteApp</h1>
+      <NoteList/>
+    </Container>
   );
 };
 
