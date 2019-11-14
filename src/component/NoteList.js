@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 const ItemContainer = styled.div`
   padding: 4px 8px;
+`;
+
+const Whitespace = styled.div`
+  height: 8px;
 `;
 
 const generateDummyNotes = amount => {
@@ -17,6 +21,36 @@ const generateDummyNotes = amount => {
   return notes;
 };
 
+const NoteForm = ({onAdd}) => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const onSubmit = e => {
+    e.preventDefault();
+    const note = {
+      title,
+      content,
+    };
+    onAdd(note);
+  };
+  return (
+    <ItemContainer>
+      <div className="card">
+        <div className="card-content">
+          <form onSubmit={onsubmit}>
+            <input className="input" type="text" placeholder="Title..." value={title} required
+                   onChange={e => setTitle(e.target.value)}/>
+            <Whitespace/>
+            <textarea className="textarea" placeholder="Write your content here..." value={content} required
+                      onChange={e => setContent(e.target.value)}/>
+            <Whitespace/>
+            <button className="button is-primary is-small" type="submit">Post</button>
+          </form>
+        </div>
+      </div>
+    </ItemContainer>
+  )
+};
+
 const NoteItem = ({note}) => (
   <ItemContainer>
     <div className="card">
@@ -29,9 +63,10 @@ const NoteItem = ({note}) => (
 );
 
 const NoteList = () => {
-  const notes = generateDummyNotes(10);
+  const [notes, setNotes] = useState(generateDummyNotes(10));
   return (
     <div>
+      <NoteForm/>
       {notes.map(note => <NoteItem key={note.id} note={note}/>)}
     </div>
   );
