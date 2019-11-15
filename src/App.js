@@ -2,6 +2,7 @@ import React from "react";
 import "bulma";
 import styled from "styled-components";
 import NotesProvider from "./context/NotesProvider";
+import NoteForm from "./component/NoteForm";
 import NoteList from "./component/NoteList";
 
 const Container = styled.div`
@@ -15,6 +16,7 @@ const App = () => {
     <NotesProvider>
       <Container>
         <h1 className="title">NoteApp</h1>
+        <NoteForm/>
         <NoteList/>
       </Container>
     </NotesProvider>

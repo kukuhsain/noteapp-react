@@ -9,7 +9,8 @@ const NotesProvider = ({children}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(BASE_URL + "/notes");
+        const url = BASE_URL + "/notes";
+        const response = await fetch(url);
         const {data} = await response.json();
         setNotes(data);
       } catch (e) {
@@ -18,9 +19,28 @@ const NotesProvider = ({children}) => {
     };
     fetchData();
   }, []);
+  const addNote = async (title, content) => {
+    try {
+      const url = BASE_URL + "/notes";
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({title, content}),
+      };
+      const response = await fetch(url, options);
+      const {data} = await response.json();
+      console.log(data);
+      setNotes([...notes, data]);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <NotesContext.Provider value={{
       notes,
+      addNote,
     }}>
       {children}
     </NotesContext.Provider>
