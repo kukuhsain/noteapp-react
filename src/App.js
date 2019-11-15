@@ -1,6 +1,7 @@
 import React from "react";
 import "bulma";
 import styled from "styled-components";
+import NotesProvider from "./context/NotesProvider";
 import NoteList from "./component/NoteList";
 
 const Container = styled.div`
@@ -11,10 +12,12 @@ const Container = styled.div`
 
 const App = () => {
   return (
-    <Container>
-      <h1 className="title">NoteApp</h1>
-      <NoteList/>
-    </Container>
+    <NotesProvider>
+      <Container>
+        <h1 className="title">NoteApp</h1>
+        <NoteList/>
+      </Container>
+    </NotesProvider>
   );
 };
 

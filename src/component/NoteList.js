@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
+import {NotesContext} from "../context";
 
 const ItemContainer = styled.div`
   padding: 4px 8px;
@@ -61,7 +62,9 @@ const NoteItem = ({note}) => (
 );
 
 const NoteList = () => {
-  const [notes, setNotes] = useState([]);
+  const notesContext = useContext(NotesContext);
+  // const [notes, setNotes] = useState([]);
+  const notes = notesContext.notes;
   const addNote = (title, content) => {
     const lastNote = notes[notes.length - 1];
     const note = {
@@ -69,7 +72,7 @@ const NoteList = () => {
       title,
       content,
     };
-    setNotes([...notes, note]);
+    // setNotes([...notes, note]);
   };
   return (
     <div>
