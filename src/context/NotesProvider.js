@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 
 import {NotesContext} from "./index";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = process.env.NODE_ENV === "development" ?
+  "http://localhost:5000" : "https://noteapp-express.herokuapp.com/";
 
 const NotesProvider = ({children}) => {
   const [notes, setNotes] = useState([]);
